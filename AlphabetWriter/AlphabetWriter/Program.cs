@@ -1,28 +1,24 @@
 ﻿using System;
 using System.Text;
 
-namespace HelloWorld
+namespace AlphabetWriter
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!\nPress ENTER to continue.");
-            Console.ReadLine();
-
-
             //Alphabet, all caps, in a string, using string builder
             Console.WriteLine("This will create a string to write the alphabet.\nPress ENTER to continue.");
             Console.ReadLine();
 
             StringBuilder alphabet = new StringBuilder("");
 
-            for (char letter = 'A'; letter <= 'Z'; letter++)
+            for (char letter = 'A'; letter <='Z'; letter++)
             {
-                alphabet.Append(new char[] { letter });
+                alphabet.Append(new char[] {letter});
             }
-
-            Console.WriteLine($"{alphabet} \n \n");
+           
+                Console.WriteLine($"{alphabet} \n \n");
 
 
             //Alphabet, in reverse, all caps, in a string, using srting builder
@@ -33,10 +29,10 @@ namespace HelloWorld
 
             for (char letterReverse = 'Z'; letterReverse >= 'A'; letterReverse--)
             {
-                alphabetReverse.Append(new char[] { letterReverse });
+                alphabetReverse.Append(new char[] {letterReverse});
             }
 
-            Console.WriteLine($"{alphabetReverse} \n \n");
+                Console.WriteLine($"{alphabetReverse} \n \n");
 
 
             //Alphabet, every other letter, all caps, in a string, using string builder
@@ -47,9 +43,12 @@ namespace HelloWorld
 
             for (char letter = 'A'; letter <= 'Z'; letter++, letter++)
             {
-                alphabetEveryOther.Append(new char[] { letter });
+                {
+                    alphabetEveryOther.Append(new char[] {letter});
+                }
             }
-            Console.WriteLine($"{alphabetEveryOther}");
+                Console.WriteLine($"{alphabetEveryOther}");
+
         }
     }
 }
