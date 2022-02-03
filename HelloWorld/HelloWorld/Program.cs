@@ -7,49 +7,72 @@ namespace HelloWorld
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!\nPress ENTER to continue.");
-            Console.ReadLine();
+            Console.WriteLine(CreateAlphabet());
 
+            string backwards = CreateAlphabetBackwards();
+            Console.WriteLine(backwards);
 
-            //Alphabet, all caps, in a string, using string builder
-            Console.WriteLine("This will create a string to write the alphabet.\nPress ENTER to continue.");
-            Console.ReadLine();
+            Console.Write("How many letters would you like to skip: ");
+            string userInput = Console.ReadLine();
 
-            StringBuilder alphabet = new StringBuilder("");
+            int numberToSkip;
+
+            if (int.TryParse(userInput, out numberToSkip))
+            {
+                numberToSkip = int.Parse(userInput) + 1;
+            }
+            else
+                while(int.TryParse(userInput, out numberToSkip) == false)
+                {
+                    Console.WriteLine("You did not enter a number.  Please enter a number.");
+                    userInput = Console.ReadLine();
+                }
+            numberToSkip = int.Parse(userInput) + 1;
+
+            Console.WriteLine(CreateAlphabetSkip(numberToSkip));
+
+        }
+
+        static string CreateAlphabet()
+        {
+            //Alphabet, all caps, in a string, without string builder
+
+            string alphabet = "";
 
             for (char letter = 'A'; letter <= 'Z'; letter++)
             {
-                alphabet.Append(new char[] { letter });
+                alphabet += letter;
             }
+                return alphabet;
+        }
 
-            Console.WriteLine($"{alphabet} \n \n");
-
-
-            //Alphabet, in reverse, all caps, in a string, using srting builder
-            Console.WriteLine("This will create a string to write the alphabet in reverse.\nPress ENTER to continue.");
-            Console.ReadLine();
-
+        static string CreateAlphabetBackwards()
+        {
+            //Alphabet, in reverse, all caps, in a string, using string builder
+        
             StringBuilder alphabetReverse = new StringBuilder("");
 
-            for (char letterReverse = 'Z'; letterReverse >= 'A'; letterReverse--)
+            for (char letter = 'Z'; letter >= 'A'; letter--)
             {
-                alphabetReverse.Append(new char[] { letterReverse });
+                alphabetReverse.Append(new char[] {letter});
             }
 
-            Console.WriteLine($"{alphabetReverse} \n \n");
+            return alphabetReverse.ToString();
+        }
 
 
+        static string CreateAlphabetSkip(int skip)
+        {
             //Alphabet, every other letter, all caps, in a string, using string builder
-            Console.WriteLine("This will create a string to write every other letter of the alphabet.\nPress ENTER to continue.");
-            Console.ReadLine();
 
             StringBuilder alphabetEveryOther = new StringBuilder("");
 
-            for (char letter = 'A'; letter <= 'Z'; letter++, letter++)
+            for (char letter = 'A'; letter <= 'Z'; letter = (char)(letter + skip))
             {
-                alphabetEveryOther.Append(new char[] { letter });
+                alphabetEveryOther.Append(new char[] {letter});
             }
-            Console.WriteLine($"{alphabetEveryOther}");
+            return alphabetEveryOther.ToString();
         }
+
     }
 }
