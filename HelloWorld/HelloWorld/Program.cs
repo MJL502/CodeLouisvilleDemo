@@ -5,19 +5,16 @@ namespace HelloWorld
 {
     class Program
     {
-        public static string FunctionSelection = string.Empty;
-        public static int functionToPerform;
-        public static bool exit;
-
         static void Main(string[] args)
         {
-            UserMenu();
-
-            UserSelection();    
+            UserSelection();
         }
 
-        static void UserMenu()
+        static int UserMenu()
         {
+            string FunctionSelection = string.Empty;
+            int functionToPerform;
+
             Console.WriteLine("This program can perform 3 functions:");
             Console.WriteLine("If you would like to learn the Aphpabet enter '1'");
             Console.WriteLine("If you would like to learn the Alphabet backwards enter '2'");
@@ -33,64 +30,63 @@ namespace HelloWorld
             }
 
             functionToPerform = int.Parse(FunctionSelection);
+            return functionToPerform;
         }
 
         static void UserSelection()
         {
-            if (int.TryParse(FunctionSelection, out functionToPerform))
+            //why does this bool have to declare false when global did not??
+            bool exit = false;
+            
+            while (exit == false)
             {
-                functionToPerform = int.Parse(FunctionSelection);
-
-                while (exit == false)
+                switch (UserMenu())
                 {
-                    switch (functionToPerform)
-                    {
-                        case 1:
-                            Console.WriteLine(CreateAlphabet());
-                            Console.WriteLine("\n");
-                            UserMenu();
-                            break;
+                    case 1:
+                        Console.WriteLine("\n"); 
+                        Console.WriteLine(CreateAlphabet());
+                        Console.WriteLine("\n");
+                        break;
 
-                        case 2:
-                            string backwards = CreateAlphabetBackwards();
-                            Console.WriteLine(backwards);
-                            Console.WriteLine("\n");
-                            UserMenu();
-                            break;
+                    case 2:
+                        Console.WriteLine("\n"); 
+                        Console.WriteLine(CreateAlphabetBackwards());
+                        Console.WriteLine("\n");
+                        break;
 
-                        case 3:
-                            Console.Write("How many letters would you like to skip: ");
-                            string userInput = Console.ReadLine();
+                    case 3:
+                        Console.WriteLine("\n"); 
+                        Console.Write("How many letters would you like to skip: ");
+                        string userInput = Console.ReadLine();
 
-                            int numberToSkip;
+                        int numberToSkip;
 
-                            if (int.TryParse(userInput, out numberToSkip))
-                            {
-                                numberToSkip = int.Parse(userInput) + 1;
-                            }
-                            else
-                                while (int.TryParse(userInput, out numberToSkip) == false)
-                                {
-                                    Console.WriteLine("You did not enter a number.  Please enter a number.");
-                                    userInput = Console.ReadLine();
-                                }
+                        if (int.TryParse(userInput, out numberToSkip))
+                        {
                             numberToSkip = int.Parse(userInput) + 1;
+                        }
+                        else
+                            while (int.TryParse(userInput, out numberToSkip) == false)
+                            {
+                                Console.WriteLine("You did not enter a number.  Please enter a number.");
+                                userInput = Console.ReadLine();
+                            }
+                        numberToSkip = int.Parse(userInput) + 1;
 
-                            Console.WriteLine(CreateAlphabetSkip(numberToSkip));
-                            Console.WriteLine("\n");
-                            UserMenu();
-                            break;
+                        Console.WriteLine("\n"); 
+                        Console.WriteLine(CreateAlphabetSkip(numberToSkip));
+                        Console.WriteLine("\n");
+                        break;
 
-                        case 4:
-                            exit = true;
-                            Console.WriteLine("Good Bye.");
-                            break;
+                    case 4:
+                        exit = true;
+                        Console.WriteLine("\n"); 
+                        Console.WriteLine("Good Bye.");
+                        break;
 
-                        default:
-                            //is this default line necessary
-                            break;
-
-                    }
+                    default:
+                        //is this default line necessary
+                        break;
                 }
             }
         }
@@ -105,20 +101,19 @@ namespace HelloWorld
             {
                 alphabet += letter;
             }
-                return alphabet;
+            return alphabet;
         }
 
         static string CreateAlphabetBackwards()
         {
             //Alphabet, in reverse, all caps, in a string, using string builder
-        
+
             StringBuilder alphabetReverse = new StringBuilder("");
 
             for (char letter = 'Z'; letter >= 'A'; letter--)
             {
-                alphabetReverse.Append(new char[] {letter});
+                alphabetReverse.Append(new char[] { letter });
             }
-
             return alphabetReverse.ToString();
         }
 
@@ -130,7 +125,7 @@ namespace HelloWorld
 
             for (char letter = 'A'; letter <= 'Z'; letter = (char)(letter + skip))
             {
-                alphabetEveryOther.Append(new char[] {letter});
+                alphabetEveryOther.Append(new char[] { letter });
             }
             return alphabetEveryOther.ToString();
         }
